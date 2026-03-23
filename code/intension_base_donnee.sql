@@ -1,20 +1,21 @@
 -- ////////////////////////////////////////////////////////////////////
 /*                                                                                                                                                                                                                                               
-                                           ,--, 
-                 ,---,        ,---,      ,--.'| 
-       ,---.  ,`--.' |     ,`--.' |   ,--,  | : 
-      /__./| /    /  :    /    /  :,---.'|  : ' 
- ,---.;  ; |:    |.' '   :    |.' ';   : |  | ; 
-/___/ \  | |`----':  |   `----':  ||   | : _' | 
-\   ;  \ ' |   '   ' ;      '   ' ;:   : |.'  | 
- \   \  \: |   |   | |      |   | ||   ' '  ; : 
-  ;   \  ' .   '   : ;      '   : ;\   \  .'. | 
-   \   \   '   |   | '      |   | ' `---`:  | ' 
-    \   `  ;   '   : | ___  '   : | ___  '  ; | 
-     :   \ |   ;   |.'/  .\ ;   |.'/  .\ |  : ; 
-      '---"    '---'  \  ; |'---'  \  ; |'  ,/  
-                       `--"         `--" '--'   
-                                                                                                                                                                 
+                                              ,----,. 
+                                            ,'   ,' | 
+                 ,---,        ,---,       ,'   .'   | 
+       ,---.  ,`--.' |     ,`--.' |     ,----.'    .' 
+      /__./| /    /  :    /    /  :     |    |   .'   
+ ,---.;  ; |:    |.' '   :    |.' '     :    :  |--,  
+/___/ \  | |`----':  |   `----':  |     :    |  ;.' \ 
+\   ;  \ ' |   '   ' ;      '   ' ;     |    |      | 
+ \   \  \: |   |   | |      |   | |     `----'.'\   ; 
+  ;   \  ' .   '   : ;      '   : ;       __  \  .  | 
+   \   \   '   |   | '      |   | '     /   /\/  /  : 
+    \   `  ;   '   : | ___  '   : | ___/ ,,/  ',-   . 
+     :   \ |   ;   |.'/  .\ ;   |.'/  .\ ''\       ;  
+      '---"    '---'  \  ; |'---'  \  ; \   \    .'   
+                       `--"         `--" `--`-,-'     
+                                                                                                                                                                                                                       
 */
 -- ////////////////////////////////////////////////////////////////////
 
@@ -27,6 +28,10 @@
 *** PARTIES (TENRAC / NOURRITURE / MACHINES) ***
 
 === SOUS-PARTIE DE CHAQUE PARTIE ===
+
+PK ==> PRIMARY KEY
+FK ==> FOREIGN KEY
+DM ==> DOMAIN
 
 -----------------------
 
@@ -45,61 +50,61 @@ PROMPT "Définition des données";
 
 -- SUPPRESSION AUTOMATIQUE DES TABLES AVANT DE LES CREER POUR EVITER PROBLEMES
 
--- //** ENTITE **//
-DROP TABLE IF EXISTS Tenrac CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Adresse CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Grade CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Rang CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Titre CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Dignite CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Carte_Membre CASCADE CONSTRAINT PURGE;
+-- //** TABLES ENTITES **//
+DROP TABLE IF EXISTS Tenrac                     CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Adresse                    CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Grade               CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Rang                CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Titre               CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Dignite             CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Carte_Membre               CASCADE CONSTRAINT PURGE;
 -----------------------------------------------------------
-DROP TABLE IF EXISTS Ordre CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Club CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Reunion CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Organisme CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Ordre                      CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Club                       CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Reunion                    CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Organisme                  CASCADE CONSTRAINT PURGE;
 -----------------------------------------------------------
-DROP TABLE IF EXISTS Allergie CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Croyance CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Conviction CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Allergie                   CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Croyance                   CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Conviction                 CASCADE CONSTRAINT PURGE;
 -----------------------------------------------------------
-DROP TABLE IF EXISTS Machine CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Entretient CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Certificat_Entretient CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Machine_Modele CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Registre CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Machine                    CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Entretien                  CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Certificat_Entretien       CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Machine_Modele             CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Registre                   CASCADE CONSTRAINT PURGE;
 -----------------------------------------------------------
-DROP TABLE IF EXISTS Plat CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Legume CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Boisson CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Sauce CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Raclette CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Composition CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Ingredient CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Degustation CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Repas CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Plat                       CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Legume                     CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Boisson                    CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Sauce                      CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Raclette                   CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Composition                CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Ingredient                 CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Degustation                CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Repas                      CASCADE CONSTRAINT PURGE;
 -- //******************//
 
 
--- //** ENTITEE ASSOS **//
+-- //** TABLES ASSOCIATIONS **//
 
-DROP TABLE IF EXISTS Tenrac_Se_Reunissent CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Est_Allergique CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_A_Pour_Conviction CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Tenrac_Croit CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Se_Reunissent       CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Est_Allergique      CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_A_Pour_Conviction   CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Tenrac_Croit               CASCADE CONSTRAINT PURGE;
 ------------------------------------------------------------------------
-DROP TABLE IF EXISTS Legume_Peut_Enfreindre CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Legume_Peut_Heurter CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Legume_Peut_Provoquer CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Legume_Peut_Enfreindre     CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Legume_Peut_Heurter        CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Legume_Peut_Provoquer      CASCADE CONSTRAINT PURGE;
 ------------------------------------------------------------------------
-DROP TABLE IF EXISTS Repas_Constitue_De CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Repas_Servi_Avec CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Plat_Est_Accompagne_De CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Compo_Est_Assemblage_De CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Repas_Constitue_De         CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Repas_Servi_Avec           CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Plat_Est_Accompagne_De     CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Compo_Est_Assemblage_De    CASCADE CONSTRAINT PURGE;
 ------------------------------------------------------------------------
-DROP TABLE IF EXISTS Machine_Prepare CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Modele_Necessite CASCADE CONSTRAINT PURGE;
-DROP TABLE IF EXISTS Registre_Archive CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Machine_Prepare            CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Modele_Necessite           CASCADE CONSTRAINT PURGE;
+DROP TABLE IF EXISTS Registre_Archive           CASCADE CONSTRAINT PURGE;
 
 -- //******************//
 
@@ -110,42 +115,74 @@ DROP TABLE IF EXISTS Registre_Archive CASCADE CONSTRAINT PURGE;
 -- ==================================================================
 
 -- TENRAC
-
 CREATE TABLE Tenrac (
-    tenrac_id NUMBER(10, 0),
-    tenrac_nom VARCHAR2(50) NOT NULL,
-    tenrac_prenom VARCHAR2(50) NOT NULL,
-    tenrac_courriel VARCHAR2(320) NOT NULL,
-    tenrac_telephone VARCHAR2(20) NOT NULL,
-    tenrac_adresse_principale VARCHAR2(38) NOT NULL,
-    tenrac_adresse_complement VARCHAR2(38),
-    tenrac_adresse_code_postal VARCHAR2(10) NOT NULL,
-    tenrac_adresse_ville VARCHAR2(38) NOT NULL,
-    PRIMARY KEY(tenrac_id),
-    FOREIGN KEY(organisme_siret) REFERENCES Organisme(organisme_siret),
-    FOREIGN KEY(grade_id) REFERENCES Tenrac_Grade(grade_id),
-    FOREIGN KEY(rang_id) REFERENCES Tenrac_Rang(rang_id),
-    FOREIGN KEY(titre_id) REFERENCES Tenrac_Titre(titre_id), 
-    FOREIGN KEY(dignite_id) REFERENCES Tenrac_Dignite(dignite_id)
+    --Atributs --------------------------------------------------------------
+    tenrac_id                       NUMBER(10, 0),
+    tenrac_nom                      VARCHAR2(50)    NOT NULL,
+    tenrac_prenom                   VARCHAR2(50)    NOT NULL,
+    tenrac_courriel                 VARCHAR2(320)   NOT NULL,
+    tenrac_telephone                VARCHAR2(20)    NOT NULL,
+    tenrac_adresse_principale       VARCHAR2(38)    NOT NULL,
+    tenrac_adresse_complement       VARCHAR2(38),
+    tenrac_adresse_code_postal      VARCHAR2(10)    NOT NULL,
+    tenrac_adresse_ville            VARCHAR2(38)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Cles etrangères --------------------------------------------------------------
+    organisme_siret                 VARCHAR2(24)    NOT NULL,
+    grade_id                        NUMBER(3, 0)    NOT NULL,
+    rang_id                         NUMBER(3, 0),
+    titre_id                        NUMBER(3, 0),
+    dignite_id                      NUMBER(3, 0),
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_tenrac_id         PRIMARY KEY(tenrac_id),
+    CONSTRAINT FK_organisme_siret   FOREIGN KEY(organisme_siret)  REFERENCES Organisme(organisme_siret),
+    CONSTRAINT FK_grade_id          FOREIGN KEY(grade_id)         REFERENCES Tenrac_Grade(grade_id),
+    CONSTRAINT FK_rang_id           FOREIGN KEY(rang_id)          REFERENCES Tenrac_Rang(rang_id),
+    CONSTRAINT FK_titre_id          FOREIGN KEY(titre_id)         REFERENCES Tenrac_Titre(titre_id), 
+    CONSTRAINT FK_dignite_id        FOREIGN KEY(dignite_id)       REFERENCES Tenrac_Dignite(dignite_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Adresse (
-    adresse_id NUMBER(5, 0),
-    adresse_principale VARCHAR2(38) NOT NULL,
-    adresse_complement VARCHAR2(38),
-    adresse_code_postal VARCHAR2(10) NOT NULL,
-    adresse_ville VARCHAR2(38) NOT NULL,
-    PRIMARY KEY(adresse_id),
-    FOREIGN KEY(ordre_id) REFERENCES Ordre(ordre_id)
+    --Attributs --------------------------------------------------------------
+    adresse_id                  NUMBER(5, 0),
+    adresse_principale          VARCHAR2(38)    NOT NULL,
+    adresse_complement          VARCHAR2(38),
+    adresse_code_postal         VARCHAR2(10)    NOT NULL,
+    adresse_ville               VARCHAR2(38)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Cles etrangeres --------------------------------------------------------------
+    ordre_id                    NUMBER(3, 0)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_adresse_id    PRIMARY KEY(adresse_id),
+    CONSTRAINT FK_ordre_id      FOREIGN KEY(ordre_id)       REFERENCES Ordre(ordre_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Carte_Membre (
-    tenrac_code NUMBER(10, 0),
-    carte_active BOOLEAN NOT NULL,
-    carte_expiration DATE NOT NULL,
-    PRIMARY KEY(tenrac_code),
-    FOREIGN KEY(club_id) REFERENCES Club(club_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id)
+    --Attributs --------------------------------------------------------------
+    tenrac_code                 NUMBER(10, 0),
+    carte_active                NUMBER(1, 0)    NOT NULL,
+    carte_expiration            DATE            NOT NULL,
+    --------------------------------------------------------------
+    
+    --Cles etrangeres --------------------------------------------------------------
+    club_id                     NUMBER(5, 0)
+    tenrac_id                   NUMBER(10, 0)   NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_tenrac_code   PRIMARY KEY(tenrac_code),
+    CONSTRAINT FK_club_id       FOREIGN KEY(club_id)        REFERENCES Club(club_id),
+    CONSTRAINT FK_tenrac_id     FOREIGN KEY(tenrac_id)      REFERENCES Tenrac(tenrac_id)
+    CONSTRAINT DM_carte_active  CHECK (carte_active IN (0, 1))
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -153,27 +190,47 @@ CREATE TABLE Carte_Membre (
 -- GRADE / TITRE / RANG / DIGNITE
 
 CREATE TABLE Tenrac_Grade (
-    grade_id NUMBER(3, 0),
-    grade_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(grade_id)
+    --Attributs --------------------------------------------------------------
+    grade_id        NUMBER(3, 0),
+    grade_nom       VARCHAR2(32)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_grade_id      PRIMARY KEY(grade_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_Rang (
-    rang_id NUMBER(3, 0),
-    rang_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(rang_id)
+    --Attributs --------------------------------------------------------------
+    rang_id         NUMBER(3, 0),
+    rang_nom        VARCHAR2(32)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_rang_id       PRIMARY KEY(rang_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_Titre (
-    titre_id NUMBER(3, 0),
-    titre_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(titre_id)
+    --Attributs --------------------------------------------------------------
+    titre_id        NUMBER(3, 0),
+    titre_nom       VARCHAR2(32)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_titre_id      PRIMARY KEY(titre_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_Dignite (
-    dignite_id NUMBER(3, 0),
-    dignite_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(dignite_id)
+    --Attributs --------------------------------------------------------------
+    dignite_id      NUMBER(3, 0),
+    dignite_nom     VARCHAR2(32)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_dignite_id    PRIMARY KEY(dignite_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -181,21 +238,36 @@ CREATE TABLE Tenrac_Dignite (
 -- SENSIBILITE TENRAC => ALLERGIE / CROYANCE / CONVICTION
 
 CREATE TABLE Allergie (
-    allergie_id NUMBER(10, 0),
-    allergie_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(allergie_id)
+    --Attributs --------------------------------------------------------------
+    allergie_id     NUMBER(10, 0),
+    allergie_nom    VARCHAR2(64)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_allergie_id   PRIMARY KEY (allergie_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Croyance (
-    croyance_id NUMBER(10, 0),
-    croyance_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(croyance_id)
+    --Attributs --------------------------------------------------------------
+    croyance_id     NUMBER(10, 0),
+    croyance_nom    VARCHAR2(64)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_croyance_id   PRIMARY KEY(croyance_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Conviction (
-    conviction_id NUMBER(10,0),
-    conviction_nom VARCHAR2(50) NOT NULL,
-    PRIMARY KEY(conviction_id)
+    --Attributs --------------------------------------------------------------
+    conviction_id   NUMBER(10,0),
+    conviction_nom  VARCHAR2(50)    NOT NULL,
+    --------------------------------------------------------------
+    
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_conviction_id  PRIMARY KEY(conviction_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -206,40 +278,71 @@ CREATE TABLE Conviction (
 -- ORDRE / CLUB / ORGANISME / REUNION
 
 CREATE TABLE Ordre (
-    ordre_id NUMBER(3, 0),
-    ordre_nom VARCHAR2(50) NOT NULL,
-    PRIMARY KEY(ordre_id),
-    FOREIGN KEY(registre_id) REFERENCES Registre(registre_id)
+    ordre_id    NUMBER(3, 0),
+    ordre_nom   VARCHAR2(50)    NOT NULL,
+
+    ------------------------------------------------------------
+    registre_id NUMBER(5, 0),
+    ------------------------------------------------------------
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_ordre_id      PRIMARY KEY(ordre_id)
+    CONSTRAINT FK_registre_id   FOREIGN KEY(registre_id)    REFERENCES Registre(registre_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Club (
-    club_id NUMBER(5, 0),
-    club_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(club_id),
-    FOREIGN KEY(ordre_id) REFERENCES Ordre(ordre_id),
-    FOREIGN KEY(registre_id) REFERENCES Registre(registre_id)
+    club_id     NUMBER(5, 0),
+    club_nom    VARCHAR2(32)    NOT NULL,
+    
+    ------------------------------------------------------------
+    ordre_id    NUMBER(3, 0),
+    registre_id NUMBER(5, 0),
+    ------------------------------------------------------------
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_club_id       PRIMARY KEY(club_id),
+    CONSTRAINT FK_ordre_id      FOREIGN KEY(ordre_id)       REFERENCES Ordre(ordre_id),
+    CONSTRAINT FK_registre_id   FOREIGN KEY(registre_id)    REFERENCES Registre(registre_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Organisme (
-    organisme_siret VARCHAR2(14),
-    organisme_nom VARCHAR2(64) NOT NULL,
-    organisme_raison VARCHAR2(128) NOT NULL,
-    PRIMARY KEY(organisme_siret)
+    organisme_siret     VARCHAR2(14),
+    organisme_nom       VARCHAR2(64)    NOT NULL,
+    organisme_raison    VARCHAR2(128)   NOT NULL,
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_organisme_siret   PRIMARY KEY(organisme_siret)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Reunion (
-    reunion_id NUMBER(20, 0),
-    reunion_date DATETIME NOT NULL,
-    PRIMARY KEY(reunion_id),
-    FOREIGN KEY(adresse_id) REFERENCES Adresse(adresse_id)
+    reunion_id      NUMBER(20, 0),
+    reunion_date    DATETIME NOT NULL,
+    
+    ------------------------------------------------------------
+    adresse_id      NUMBER(5, 0),
+    ------------------------------------------------------------
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_reunion_id    PRIMARY KEY(reunion_id),
+    CONSTRAINT FK_adresse_id    FOREIGN KEY(adresse_id)     REFERENCES Adresse(adresse_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
 
 -- REGISTRE /!\ EN LIEN AVEC L'ORDRE ET LE CLUB
 CREATE TABLE Registre (
+   
+    --Attributs --------------------------------------------------------------
     registre_id NUMBER(5, 0),
-    PRIMARY KEY(registre_id)
+    --------------------------------------------------------------
+
+    --Contraintes --------------------------------------------------------------
+    CONSTRAINT PK_registre_id   PRIMARY KEY(registre_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -259,70 +362,107 @@ CREATE TABLE Registre (
 -- PLAT AVEC NOURRITURE ET CI
 
 CREATE TABLE Plat (
-    plat_id NUMBER(5, 0),
-    plat_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(plat_id),
-    FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
-    FOREIGN KEY(raclette_id) REFERENCES Raclette(raclette_id),
-    FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
+    plat_id         NUMBER(5, 0),
+    plat_nom        VARCHAR2(64)    NOT NULL,
+    
+    ------------------------------------------------------------
+    legume_id       NUMBER(5, 0),
+    raclette_id     NUMBER(3, 0),
+    composition_id  NUMBER(10, 0),
+    ------------------------------------------------------------
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_plat_id           PRIMARY KEY(plat_id),
+    CONSTRAINT FK_legume_id         FOREIGN KEY(legume_id)      REFERENCES Legume(legume_id),
+    CONSTRAINT FK_raclette_id       FOREIGN KEY(raclette_id)    REFERENCES Raclette(raclette_id),
+    CONSTRAINT FK_composition_id    FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Raclette (
-    raclette_id NUMBER(3, 0),
-    raclette_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(raclette_id)
+    raclette_id     NUMBER(3, 0),
+    raclette_nom    VARCHAR2(64)    NOT NULL,
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_raclette_id   PRIMARY KEY(raclette_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Repas (
-    repas_id NUMBER(10, 0),
-    repas_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(repas_id)
+    repas_id    NUMBER(10, 0),
+    repas_nom   VARCHAR2(64)    NOT NULL,
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_repas_id  PRIMARY KEY(repas_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Boisson (
-    boisson_id NUMBER(5, 0),
-    boisson_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(boisson_id)
+    boisson_id  NUMBER(5, 0),
+    boisson_nom VARCHAR2(32)    NOT NULL,
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_boisson_id    PRIMARY KEY(boisson_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Sauce (
-    sauce_id NUMBER(5, 0),
-    sauce_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(sauce_id),
-    FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
+    sauce_id        NUMBER(5, 0),
+    sauce_nom       VARCHAR2(64)    NOT NULL,
+    
+    --------------------------------------------------------------
+    composition_id  NUMBER(10, 0),
+    --------------------------------------------------------------
+    
+    --------------------------------------------------------------
+    CONSTRAINT PK_sauce_id          PRIMARY KEY(sauce_id),
+    CONSTRAINT FK_composition_id    FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Composition (
-    composition_id NUMBER(10, 0),
-    PRIMARY KEY(composition_id)
+    composition_id  NUMBER(10, 0),
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_composition_id    PRIMARY KEY(composition_id)
+    -------------------------------------------------------------
 );
 
 CREATE TABLE Ingredient (
-    ingredient_id NUMBER(5, 0),
-    ingredient_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(ingredient_id)
+    ingredient_id   NUMBER(5, 0),
+    ingredient_nom  VARCHAR2(64)    NOT NULL,
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_ingredient_id PRIMARY KEY(ingredient_id)
+    -------------------------------------------------------------
 );
 
 CREATE TABLE Legume (
-    legume_id NUMBER(5, 0),
-    legume_nom VARCHAR2(64) NOT NULL,
-    PRIMARY KEY(legume_id)
+    legume_id   NUMBER(5, 0),
+    legume_nom  VARCHAR2(64)    NOT NULL,
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_legume_id PRIMARY KEY(legume_id)
+    -------------------------------------------------------------
 );
 
 CREATE TABLE Degustation (
-    repas_id NUMBER(10, 0),
-    tenrac_id NUMBER(10, 0),
-    reunion_id NUMBER(20, 0),
-    PRIMARY KEY (repas_id, tenrac_id, reunion_id),
-    FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
-    FOREIGN KEY(reunion_id) REFERENCES Reunion(reunion_id)
+    repas_id    NUMBER(10, 0),
+    tenrac_id   NUMBER(10, 0),
+    reunion_id  NUMBER(20, 0),
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_Degustation   PRIMARY KEY (repas_id, tenrac_id, reunion_id),
+    CONSTRAINT FK_repas_id      FOREIGN KEY(repas_id)                           REFERENCES Repas(repas_id),
+    CONSTRAINT FK_tenrac_id     FOREIGN KEY(tenrac_id)                          REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_reunion_id    FOREIGN KEY(reunion_id)                         REFERENCES Reunion(reunion_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
 
 
--- **********************************************************************
+-- ***********************************************************************
 
 
 
@@ -332,27 +472,41 @@ CREATE TABLE Degustation (
 
 -- ==================================================================
 
--- ENTRETIENT 
+-- ENTRETIEN
 
-CREATE TABLE Entretient (
-    entretient_id NUMBER(10, 0),
-    entretient_type VARCHAR2(64) NOT NULL,
-    entretient_periodicite NUMBER(5, 0) NOT NULL,
-    PRIMARY KEY(entretient_id)
+CREATE TABLE Entretien (
+    entretien_id            NUMBER(10, 0),
+    entretien_type          VARCHAR2(64)    NOT NULL,
+    entretien_periodicite   NUMBER(5, 0)    NOT NULL,
+    
+    --------------------------------------------------
+    CONSTRAINT PK_entretien_id  PRIMARY KEY(entretien_id)
+    --------------------------------------------------
 );
 
 CREATE TABLE Machine_Modele (
-    modele_id NUMBER(5, 0),
-    modele_nom VARCHAR2(32) NOT NULL,
-    PRIMARY KEY(modele_id)
+    modele_id   NUMBER(5, 0),
+    modele_nom  VARCHAR2(32) NOT NULL,
+    
+    -----------------------------------------------
+    CONSTRAINT PK_modele_id PRIMARY KEY(modele_id)
+    -----------------------------------------------
 );
 
-CREATE TABLE Certificat_Entretient (
-    certificat_id NUMBER(10, 0),
-    entretient_date DATETIME NOT NULL,
-    PRIMARY KEY(certificat_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
-    FOREIGN KEY(machine_id) REFERENCES Machine(machine_id)
+CREATE TABLE Certificat_Entretien (
+    certificat_id   NUMBER(10, 0),
+    entretien_date  DATETIME NOT NULL,
+    
+    -------------------------------------------------------------
+    tenrac_id       NUMBER(10, 0),
+    machine_id      NUMBER(5, 0),
+    -------------------------------------------------------------
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_Certificat_Entretien  PRIMARY KEY(certificat_id),
+    CONSTRAINT FK_tenrac_id             FOREIGN KEY(tenrac_id)      REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_machine_id            FOREIGN KEY(machine_id)     REFERENCES Machine(machine_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -362,10 +516,17 @@ CREATE TABLE Certificat_Entretient (
 -- MACHINE
 
 CREATE TABLE Machine (
-    machine_id NUMBER(5, 0),
+    machine_id  NUMBER(5, 0),
     machine_nom VARCHAR2(16),
-    PRIMARY KEY(machine_id),
-    FOREIGN KEY(modele_id) REFERENCES Machine_Modele(modele_id)
+    
+    -------------------------------------------------------------
+    modele_id   NUMBER(5, 0),
+    -------------------------------------------------------------
+    
+    -------------------------------------------------------------
+    CONSTRAINT PK_machine_id        PRIMARY KEY(machine_id),
+    CONSTRAINT FK_modele_id         FOREIGN KEY(modele_id)          REFERENCES Machine_Modele(modele_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -386,35 +547,43 @@ CREATE TABLE Machine (
 -- TENRAC
 
 CREATE TABLE Tenrac_Se_Reunissent (
-    tenrac_id NUMBER(10, 0),
-    reunion_id NUMBER(20, 0),
-    PRIMARY KEY(tenrac_id, reunion_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Teranc(tenrac_id),
-    FOREIGN KEY(reunion_id) REFERENCES Reunion(reunion_id)
+    tenrac_id   NUMBER(10, 0),
+    reunion_id  NUMBER(20, 0),
+    --------------------------------------------------------------
+    CONSTRAINT PK_Tenrac_Se_Reunissent      PRIMARY KEY(tenrac_id, reunion_id),
+    CONSTRAINT FK_tenrac_id                 FOREIGN KEY(tenrac_id)                  REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_reunion_id                FOREIGN KEY(reunion_id)                 REFERENCES Reunion(reunion_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_Est_Allergique (
-    tenrac_id NUMBER(10, 0),
+    tenrac_id   NUMBER(10, 0),
     allergie_id NUMBER(10, 0),
-    PRIMARY KEY(tenrac_id, allergie_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
-    FOREIGN KEY(allergie_id) REFERENCES Allergie(allergie_id)
+    ----------------------------------------------------------------
+    CONSTRAINT PK_Tenrac_Est_Allergique     PRIMARY KEY(tenrac_id, allergie_id),
+    CONSTRAINT FK_tenrac_id                 FOREIGN KEY(tenrac_id)                  REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_allergie_id               FOREIGN KEY(allergie_id)                REFERENCES Allergie(allergie_id)
+    ----------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_Croit (
-    tenrac_id NUMBER(10, 0),
+    tenrac_id   NUMBER(10, 0),
     croyance_id NUMBER(10, 0),
-    PRIMARY KEY(tenrac_id, croyance_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
-    FOREIGN KEY(croyance_id) REFERENCES Croyance(croyance_id)
+    ----------------------------------------------------------------
+    CONSTRAINT PK_Tenrac_Croit  PRIMARY KEY(tenrac_id, croyance_id),
+    CONSTRAINT FK_tenrac_id     FOREIGN KEY(tenrac_id)                  REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_croyance_id   FOREIGN KEY(croyance_id)                REFERENCES Croyance(croyance_id)
+    ----------------------------------------------------------------
 );
 
 CREATE TABLE Tenrac_A_Pour_Conviction (
-    tenrac_id NUMBER(10, 0),
-    conviction_id NUMBER(10, 0),
-    PRIMARY KEY(tenrac_id, conviction_id),
-    FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
-    FOREIGN KEY(conviction_id) REFERENCES Conviction(conviction_id)
+    tenrac_id       NUMBER(10, 0),
+    conviction_id   NUMBER(10, 0),
+    --------------------------------------------------------------
+    CONSTRAINT PK_Tenrac_A_Pour_Conviction  PRIMARY KEY(tenrac_id, conviction_id),
+    CONSTRAINT FK_tenrac_id                 FOREIGN KEY(tenrac_id)                  REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT FK_conviction_id             FOREIGN KEY(conviction_id)              REFERENCES Conviction(conviction_id)
+    --------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -425,27 +594,33 @@ CREATE TABLE Tenrac_A_Pour_Conviction (
 -- SENSIBILITEE
 
 CREATE TABLE Legume_Peut_Provoquer (
-    legume_id NUMBER(5, 0),
+    legume_id   NUMBER(5, 0),
     allergie_id NUMBER(10, 0),
-    PRIMARY KEY(legume_id, allergie_id),
-    FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
-    FOREIGN KEY(allergie_id) REFERENCES Allergie(allergie_id)
+    -------------------------------------------------------------
+    CONSTRAINT PK_Legume_Peut_Provoquer     PRIMARY KEY(legume_id, allergie_id),
+    CONSTRAINT FK_legume_id                 FOREIGN KEY(legume_id)                  REFERENCES Legume(legume_id),
+    CONSTRAINT FK_allergie_id               FOREIGN KEY(allergie_id)                REFERENCES Allergie(allergie_id)
+    --------------------------------------------------------------
 );
 
 CREATE TABLE Legume_Peut_Heurter (
-    legume_id NUMBER(5, 0),
+    legume_id   NUMBER(5, 0),
     croyance_id NUMBER(10, 0),
-    PRIMARY KEY(legume_id, croyance_id),
-    FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
-    FOREIGN KEY(croyance_id) REFERENCES Croyance(croyance_id)
+    ------------------------------------------------------------
+    CONSTRAINT PK_Legume_Peut_Heurter   PRIMARY KEY(legume_id, croyance_id),
+    CONSTRAINT FK_legume_id             FOREIGN KEY(legume_id)                  REFERENCES Legume(legume_id),
+    CONSTRAINT FK_croyance_id           FOREIGN KEY(croyance_id)                REFERENCES Croyance(croyance_id)
+    ------------------------------------------------------------
 );
 
 CREATE TABLE Legume_Peut_Enfreindre (
-    legume_id NUMBER(5, 0),
-    conviction_id NUMBER(10, 0),
-    PRIMARY KEY(legume_id, conviction_id),
-    FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
-    FOREIGN KEY(conviction_id) REFERENCES Conviction(conviction_id)
+    legume_id       NUMBER(5, 0),
+    conviction_id   NUMBER(10, 0),
+    ------------------------------------------------------------
+    CONSTRAINT PK_Legume_Peut_Enfreindre    PRIMARY KEY(legume_id, conviction_id),
+    CONSTRAINT FK_legume_id                 FOREIGN KEY(legume_id)                  REFERENCES Legume(legume_id),
+    CONSTRAINT FK_conviction_id             FOREIGN KEY(conviction_id)              REFERENCES Conviction(conviction_id)
+    ------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -455,35 +630,43 @@ CREATE TABLE Legume_Peut_Enfreindre (
 -- NOURRITURE
 
 CREATE TABLE Repas_Constitue_De (
-    repas_id NUMBER(10, 0),
-    plat_id NUMBER(5, 0),
-    PRIMARY KEY(repas_id, plat_id),
-    FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
-    FOREIGN KEY(plat_id) REFERENCES Plat(plat_id)
+    repas_id    NUMBER(10, 0),
+    plat_id     NUMBER(5, 0),
+    --------------------------------------------------------------------
+    CONSTRAINT PK_Repas_Constitue_De    PRIMARY KEY(repas_id, plat_id),
+    CONSTRAINT FK_repas_id              FOREIGN KEY(repas_id)           REFERENCES Repas(repas_id),
+    CONSTRAINT FK_plat_id               FOREIGN KEY(plat_id)            REFERENCES Plat(plat_id)
+    --------------------------------------------------------------------
 );
 
 CREATE TABLE Plat_Est_Accompagne_De (
-   plat_id NUMBER(5, 0),
+   plat_id  NUMBER(5, 0),
    sauce_id NUMBER(5, 0),
-   PRIMARY KEY(plat_id, sauce_id),
-   FOREIGN KEY(plat_id) REFERENCES Plat(plat_id),
-   FOREIGN KEY(sauce_id) REFERENCES Sauce(sauce_id)
+   --------------------------------------------------------------------
+   CONSTRAINT PK_Plat_Est_Accompagne_De PRIMARY KEY(plat_id, sauce_id),
+   CONSTRAINT FK_plat_id                FOREIGN KEY(plat_id)            REFERENCES Plat(plat_id),
+   CONSTRAINT FK_sauce_id               FOREIGN KEY(sauce_id)           REFERENCES Sauce(sauce_id)
+   --------------------------------------------------------------------
 );
 
 CREATE TABLE Compo_Est_Assemblage_De (
-   ingredient_id NUMBER(5, 0),
-   composition_id NUMBER(10, 0),
-   PRIMARY KEY(ingredient_id, composition_id),
-   FOREIGN KEY(ingredient_id) REFERENCES Ingredient(ingredient_id),
-   FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
+   ingredient_id    NUMBER(5, 0),
+   composition_id   NUMBER(10, 0),
+   --------------------------------------------------------------------
+   CONSTRAINT PK_Compo_Est_Assemblage_De    PRIMARY KEY(ingredient_id, composition_id),
+   CONSTRAINT FK_ingredient_id              FOREIGN KEY(ingredient_id)                  REFERENCES Ingredient(ingredient_id),
+   CONSTRAINT FK_composition_id             FOREIGN KEY(composition_id)                 REFERENCES Composition(composition_id)
+   --------------------------------------------------------------------
 );
 
 CREATE TABLE Repas_Servi_Avec (
-   repas_id NUMBER(10, 0),
-   boisson_id NUMBER(5, 0),
-   PRIMARY KEY(repas_id, boisson_id),
-   FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
-   FOREIGN KEY(boisson_id) REFERENCES Boisson(boisson_id)
+   repas_id     NUMBER(10, 0),
+   boisson_id   NUMBER(5, 0),
+   -------------------------------------------------------------------
+   CONSTRAINT PK_Repas_Servi_Avec   PRIMARY KEY(repas_id, boisson_id),
+   CONSTRAINT FK_repas_id           FOREIGN KEY(repas_id)               REFERENCES Repas(repas_id),
+   CONSTRAINT FK_boisson_id         FOREIGN KEY(boisson_id)             REFERENCES Boisson(boisson_id)
+   -------------------------------------------------------------------
 );
 
 -- ==================================================================
@@ -493,29 +676,33 @@ CREATE TABLE Repas_Servi_Avec (
 -- MACHINES
 
 CREATE TABLE Registre_Archive (
-   registre_id NUMBER(5, 0),
-   certificat_id NUMBER(10, 0),
-   PRIMARY KEY(registre_id, certificat_id),
-   FOREIGN KEY(registre_id) REFERENCES Registre(registre_id),
-   FOREIGN KEY(certificat_id) REFERENCES Certificat_Entretient(certificat_id)
+   registre_id      NUMBER(5, 0),
+   certificat_id    NUMBER(10, 0),
+   --------------------------------------------------------------------
+   CONSTRAINT PK_Registre_Archive   PRIMARY KEY(registre_id, certificat_id),
+   CONSTRAINT FK_registre_id        FOREIGN KEY(registre_id)                    REFERENCES Registre(registre_id),
+   CONSTRAINT FK_certificat_id      FOREIGN KEY(certificat_id)                  REFERENCES Certificat_Entretient(certificat_id)
+   --------------------------------------------------------------------
 );
 
 CREATE TABLE Machine_Prepare (
-   repas_id NUMBER(10, 0),
-   machine_id NUMBER(5, 0),
-   PRIMARY KEY(repas_id, machine_id),
-   FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
-   FOREIGN KEY(machine_id) REFERENCES Machine(machine_id)
+   repas_id     NUMBER(10, 0),
+   machine_id   NUMBER(5, 0),
+   -------------------------------------------------------------------
+   CONSTRAINT PK_Machine_Prepare    PRIMARY KEY(repas_id, machine_id),
+   CONSTRAINT FK_repas_id           FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
+   CONSTRAINT FK_machine_id         FOREIGN KEY(machine_id) REFERENCES Machine(machine_id)
+   -------------------------------------------------------------------
 );
 
 CREATE TABLE Modele_Necessite (
-   modele_id NUMBER(5, 0),
-   entretient_id NUMBER(10, 0),
-   PRIMARY KEY(modele_id, entretient_id),
-   FOREIGN KEY(modele_id) REFERENCES Machine_Modele(modele_id),
-   FOREIGN KEY(entretient_id) REFERENCES Entretient(entretient_id)
+   modele_id        NUMBER(5, 0),
+   entretien_id    NUMBER(10, 0),
+   -------------------------------------------------------------------
+   CONSTRAINT PK_Modele_Necessite   PRIMARY KEY(modele_id, entretien_id),
+   CONSTRAINT FK_modele_id          FOREIGN KEY(modele_id)                  REFERENCES Machine_Modele(modele_id),
+   CONSTRAINT FK_entretien_id      FOREIGN KEY(entretien_id)              REFERENCES Entretien(entretien_id)
+   ------------------------------------------------------------------
 );
-
-
 
 -- ==================================================================
