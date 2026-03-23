@@ -33,11 +33,11 @@
 */
 
 
-PROMPT "Création de l'intension de la base de données des Tenracs"
+PROMPT "Création de l'intension de la base de données des Tenracs";
 
 -- *****************************************************************
 
-PROMPT "Définition des données"
+PROMPT "Définition des données";
 
 -- *****************************************************************
 
@@ -111,7 +111,7 @@ DROP TABLE IF EXISTS Registre_Archive CASCADE CONSTRAINT PURGE;
 
 -- TENRAC
 
-CREATE TABLE Tenrac {
+CREATE TABLE Tenrac (
     tenrac_id NUMBER(10, 0),
     tenrac_nom VARCHAR2(50) NOT NULL,
     tenrac_prenom VARCHAR2(50) NOT NULL,
@@ -127,9 +127,9 @@ CREATE TABLE Tenrac {
     FOREIGN KEY(rang_id) REFERENCES Tenrac_Rang(rang_id),
     FOREIGN KEY(titre_id) REFERENCES Tenrac_Titre(titre_id), 
     FOREIGN KEY(dignite_id) REFERENCES Tenrac_Dignite(dignite_id)
-}
+);
 
-CREATE TABLE Adresse {
+CREATE TABLE Adresse (
     adresse_id NUMBER(5, 0),
     adresse_principale VARCHAR2(38) NOT NULL,
     adresse_complement VARCHAR2(38),
@@ -137,66 +137,66 @@ CREATE TABLE Adresse {
     adresse_ville VARCHAR2(38) NOT NULL,
     PRIMARY KEY(adresse_id),
     FOREIGN KEY(ordre_id) REFERENCES Ordre(ordre_id)
-}
+);
 
-CREATE TABLE Carte_Membre {
+CREATE TABLE Carte_Membre (
     tenrac_code NUMBER(10, 0),
     carte_active BOOLEAN NOT NULL,
     carte_expiration DATE NOT NULL,
     PRIMARY KEY(tenrac_code),
     FOREIGN KEY(club_id) REFERENCES Club(club_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id)
-}
+);
 
 -- ==================================================================
 
 -- GRADE / TITRE / RANG / DIGNITE
 
-CREATE TABLE Tenrac_Grade {
+CREATE TABLE Tenrac_Grade (
     grade_id NUMBER(3, 0),
     grade_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(grade_id)
-}
+);
 
-CREATE TABLE Tenrac_Rang {
+CREATE TABLE Tenrac_Rang (
     rang_id NUMBER(3, 0),
     rang_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(rang_id)
-}
+);
 
-CREATE TABLE Tenrac_Titre {
+CREATE TABLE Tenrac_Titre (
     titre_id NUMBER(3, 0),
     titre_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(titre_id)
-}
+);
 
-CREATE TABLE Tenrac_Dignite {
+CREATE TABLE Tenrac_Dignite (
     dignite_id NUMBER(3, 0),
     dignite_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(dignite_id)
-}
+);
 
 -- ==================================================================
 
 -- SENSIBILITE TENRAC => ALLERGIE / CROYANCE / CONVICTION
 
-CREATE TABLE Allergie {
+CREATE TABLE Allergie (
     allergie_id NUMBER(10, 0),
     allergie_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(allergie_id)
-}
+);
 
-CREATE TABLE Croyance {
+CREATE TABLE Croyance (
     croyance_id NUMBER(10, 0),
     croyance_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(croyance_id)
-}
+);
 
-CREATE TABLE Conviction {
+CREATE TABLE Conviction (
     conviction_id NUMBER(10,0),
     conviction_nom VARCHAR2(50) NOT NULL,
     PRIMARY KEY(conviction_id)
-}
+);
 
 -- ==================================================================
 
@@ -205,42 +205,42 @@ CREATE TABLE Conviction {
 
 -- ORDRE / CLUB / ORGANISME / REUNION
 
-CREATE TABLE Ordre {
+CREATE TABLE Ordre (
     ordre_id NUMBER(3, 0),
     ordre_nom VARCHAR2(50) NOT NULL,
     PRIMARY KEY(ordre_id),
     FOREIGN KEY(registre_id) REFERENCES Registre(registre_id)
-}
+);
 
-CREATE TABLE Club {
+CREATE TABLE Club (
     club_id NUMBER(5, 0),
     club_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(club_id),
     FOREIGN KEY(ordre_id) REFERENCES Ordre(ordre_id),
     FOREIGN KEY(registre_id) REFERENCES Registre(registre_id)
-}
+);
 
-CREATE TABLE Organisme {
+CREATE TABLE Organisme (
     organisme_siret VARCHAR2(14),
     organisme_nom VARCHAR2(64) NOT NULL,
     organisme_raison VARCHAR2(128) NOT NULL,
     PRIMARY KEY(organisme_siret)
-}
+);
 
-CREATE TABLE Reunion {
+CREATE TABLE Reunion (
     reunion_id NUMBER(20, 0),
     reunion_date DATETIME NOT NULL,
     PRIMARY KEY(reunion_id),
     FOREIGN KEY(adresse_id) REFERENCES Adresse(adresse_id)
-}
+);
 
 -- ==================================================================
 
 -- REGISTRE /!\ EN LIEN AVEC L'ORDRE ET LE CLUB
-CREATE TABLE Registre {
+CREATE TABLE Registre (
     registre_id NUMBER(5, 0),
     PRIMARY KEY(registre_id)
-}
+);
 
 -- ==================================================================
 
@@ -258,58 +258,58 @@ CREATE TABLE Registre {
 
 -- PLAT AVEC NOURRITURE ET CI
 
-CREATE TABLE Plat {
+CREATE TABLE Plat (
     plat_id NUMBER(5, 0),
     plat_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(plat_id),
     FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
     FOREIGN KEY(raclette_id) REFERENCES Raclette(raclette_id),
     FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
-} INHERITS(Composition);
+);
 
-CREATE TABLE Raclette {
+CREATE TABLE Raclette (
     raclette_id NUMBER(3, 0),
     raclette_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(raclette_id)
-}
+);
 
-CREATE TABLE Repas {
+CREATE TABLE Repas (
     repas_id NUMBER(10, 0),
     repas_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(repas_id)
-}
+);
 
-CREATE TABLE Boisson {
+CREATE TABLE Boisson (
     boisson_id NUMBER(5, 0),
     boisson_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(boisson_id)
-}
+);
 
-CREATE TABLE Sauce {
+CREATE TABLE Sauce (
     sauce_id NUMBER(5, 0),
     sauce_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(sauce_id),
     FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
-} INHERITS(Composition);
+);
 
-CREATE TABLE Composition {
+CREATE TABLE Composition (
     composition_id NUMBER(10, 0),
     PRIMARY KEY(composition_id)
-}
+);
 
-CREATE TABLE Ingredient {
+CREATE TABLE Ingredient (
     ingredient_id NUMBER(5, 0),
     ingredient_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(ingredient_id)
-}
+);
 
-CREATE TABLE Legume {
+CREATE TABLE Legume (
     legume_id NUMBER(5, 0),
     legume_nom VARCHAR2(64) NOT NULL,
     PRIMARY KEY(legume_id)
-}
+);
 
-CREATE TABLE Degustation {
+CREATE TABLE Degustation (
     repas_id NUMBER(10, 0),
     tenrac_id NUMBER(10, 0),
     reunion_id NUMBER(20, 0),
@@ -317,7 +317,7 @@ CREATE TABLE Degustation {
     FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
     FOREIGN KEY(reunion_id) REFERENCES Reunion(reunion_id)
-} INHERITS(Reunion, Tenrac, Repas);
+);
 
 -- ==================================================================
 
@@ -334,26 +334,26 @@ CREATE TABLE Degustation {
 
 -- ENTRETIENT 
 
-CREATE TABLE Entretient {
+CREATE TABLE Entretient (
     entretient_id NUMBER(10, 0),
     entretient_type VARCHAR2(64) NOT NULL,
     entretient_periodicite NUMBER(5, 0) NOT NULL,
     PRIMARY KEY(entretient_id)
-}
+);
 
-CREATE TABLE Machine_Modele {
+CREATE TABLE Machine_Modele (
     modele_id NUMBER(5, 0),
     modele_nom VARCHAR2(32) NOT NULL,
     PRIMARY KEY(modele_id)
-}
+);
 
-CREATE TABLE Certificat_Entretient {
+CREATE TABLE Certificat_Entretient (
     certificat_id NUMBER(10, 0),
     entretient_date DATETIME NOT NULL,
     PRIMARY KEY(certificat_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
     FOREIGN KEY(machine_id) REFERENCES Machine(machine_id)
-}
+);
 
 -- ==================================================================
 
@@ -361,12 +361,12 @@ CREATE TABLE Certificat_Entretient {
 
 -- MACHINE
 
-CREATE TABLE Machine {
+CREATE TABLE Machine (
     machine_id NUMBER(5, 0),
     machine_nom VARCHAR2(16),
     PRIMARY KEY(machine_id),
     FOREIGN KEY(modele_id) REFERENCES Machine_Modele(modele_id)
-}
+);
 
 -- ==================================================================
 
@@ -385,37 +385,37 @@ CREATE TABLE Machine {
 
 -- TENRAC
 
-CREATE TABLE Tenrac_Se_Reunissent {
+CREATE TABLE Tenrac_Se_Reunissent (
     tenrac_id NUMBER(10, 0),
     reunion_id NUMBER(20, 0),
     PRIMARY KEY(tenrac_id, reunion_id),
     FOREIGN KEY(tenrac_id) REFERENCES Teranc(tenrac_id),
     FOREIGN KEY(reunion_id) REFERENCES Reunion(reunion_id)
-}
+);
 
-CREATE TABLE Tenrac_Est_Allergique {
+CREATE TABLE Tenrac_Est_Allergique (
     tenrac_id NUMBER(10, 0),
     allergie_id NUMBER(10, 0),
     PRIMARY KEY(tenrac_id, allergie_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
     FOREIGN KEY(allergie_id) REFERENCES Allergie(allergie_id)
-}
+);
 
-CREATE TABLE Tenrac_Croit {
+CREATE TABLE Tenrac_Croit (
     tenrac_id NUMBER(10, 0),
     croyance_id NUMBER(10, 0),
     PRIMARY KEY(tenrac_id, croyance_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
     FOREIGN KEY(croyance_id) REFERENCES Croyance(croyance_id)
-}
+);
 
-CREATE TABLE Tenrac_A_Pour_Conviction {
+CREATE TABLE Tenrac_A_Pour_Conviction (
     tenrac_id NUMBER(10, 0),
     conviction_id NUMBER(10, 0),
     PRIMARY KEY(tenrac_id, conviction_id),
     FOREIGN KEY(tenrac_id) REFERENCES Tenrac(tenrac_id),
     FOREIGN KEY(conviction_id) REFERENCES Conviction(conviction_id)
-}
+);
 
 -- ==================================================================
 
@@ -424,29 +424,29 @@ CREATE TABLE Tenrac_A_Pour_Conviction {
 
 -- SENSIBILITEE
 
-CREATE TABLE Legume_Peut_Provoquer {
+CREATE TABLE Legume_Peut_Provoquer (
     legume_id NUMBER(5, 0),
     allergie_id NUMBER(10, 0),
     PRIMARY KEY(legume_id, allergie_id),
     FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
     FOREIGN KEY(allergie_id) REFERENCES Allergie(allergie_id)
-}
+);
 
-CREATE TABLE Legume_Peut_Heurter {
+CREATE TABLE Legume_Peut_Heurter (
     legume_id NUMBER(5, 0),
     croyance_id NUMBER(10, 0),
     PRIMARY KEY(legume_id, croyance_id),
     FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
     FOREIGN KEY(croyance_id) REFERENCES Croyance(croyance_id)
-}
+);
 
-CREATE TABLE Legume_Peut_Enfreindre {
+CREATE TABLE Legume_Peut_Enfreindre (
     legume_id NUMBER(5, 0),
     conviction_id NUMBER(10, 0),
     PRIMARY KEY(legume_id, conviction_id),
     FOREIGN KEY(legume_id) REFERENCES Legume(legume_id),
     FOREIGN KEY(conviction_id) REFERENCES Conviction(conviction_id)
-}
+);
 
 -- ==================================================================
 
@@ -454,15 +454,15 @@ CREATE TABLE Legume_Peut_Enfreindre {
 
 -- NOURRITURE
 
-CREATE TABLE Repas_Constitue_De {
+CREATE TABLE Repas_Constitue_De (
     repas_id NUMBER(10, 0),
     plat_id NUMBER(5, 0),
     PRIMARY KEY(repas_id, plat_id),
     FOREIGN KEY(repas_id) REFERENCES Repas(repas_id),
     FOREIGN KEY(plat_id) REFERENCES Plat(plat_id)
-}
+);
 
-CREATE TABLE Plat_Est_Accompagne_De(
+CREATE TABLE Plat_Est_Accompagne_De (
    plat_id NUMBER(5, 0),
    sauce_id NUMBER(5, 0),
    PRIMARY KEY(plat_id, sauce_id),
@@ -470,7 +470,7 @@ CREATE TABLE Plat_Est_Accompagne_De(
    FOREIGN KEY(sauce_id) REFERENCES Sauce(sauce_id)
 );
 
-CREATE TABLE Compo_Est_Assemblage_De(
+CREATE TABLE Compo_Est_Assemblage_De (
    ingredient_id NUMBER(5, 0),
    composition_id NUMBER(10, 0),
    PRIMARY KEY(ingredient_id, composition_id),
@@ -478,7 +478,7 @@ CREATE TABLE Compo_Est_Assemblage_De(
    FOREIGN KEY(composition_id) REFERENCES Composition(composition_id)
 );
 
-CREATE TABLE Repas_Servi_Avec(
+CREATE TABLE Repas_Servi_Avec (
    repas_id NUMBER(10, 0),
    boisson_id NUMBER(5, 0),
    PRIMARY KEY(repas_id, boisson_id),
@@ -492,7 +492,7 @@ CREATE TABLE Repas_Servi_Avec(
 
 -- MACHINES
 
-CREATE TABLE Registre_Archive(
+CREATE TABLE Registre_Archive (
    registre_id NUMBER(5, 0),
    certificat_id NUMBER(10, 0),
    PRIMARY KEY(registre_id, certificat_id),
@@ -500,7 +500,7 @@ CREATE TABLE Registre_Archive(
    FOREIGN KEY(certificat_id) REFERENCES Certificat_Entretient(certificat_id)
 );
 
-CREATE TABLE Machine_Prepare(
+CREATE TABLE Machine_Prepare (
    repas_id NUMBER(10, 0),
    machine_id NUMBER(5, 0),
    PRIMARY KEY(repas_id, machine_id),
@@ -508,7 +508,7 @@ CREATE TABLE Machine_Prepare(
    FOREIGN KEY(machine_id) REFERENCES Machine(machine_id)
 );
 
-CREATE TABLE Modele_Necessite(
+CREATE TABLE Modele_Necessite (
    modele_id NUMBER(5, 0),
    entretient_id NUMBER(10, 0),
    PRIMARY KEY(modele_id, entretient_id),
