@@ -740,4 +740,3 @@ BEGIN
 END;
 /
 
-PROMPT "Trigger activé";

@@ -20,7 +20,7 @@
 9) Quels sont, par tenrac, les nombres de réunions auxquelles ils ont participé, pour ceux en ayant fait au moins deux, avec leurs noms et prénoms ? 3 attributs, 6 tuples
 
 -- Repas et plats --
-10) Quels sont les noms des repas et les noms des plats qui les composent, par ordre alphabétique des repas ? 2 attributs, 18 tuples
+10) Quels sont les noms des repas et les noms des plats qui les composent, par ordre alphabétique des repas ? 2 attributs, 30 tuples
 
 11) Quels sont les noms des plats, les noms de leurs sauces d'accompagnement et les noms des ingrédients composant ces sauces, pour les plats en ayant au moins une ? 3 attributs, 10 tuples
 
