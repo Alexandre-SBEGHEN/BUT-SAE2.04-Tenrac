@@ -46,24 +46,6 @@ PROMPT "Création de l'intension de la base de données des Tenracs";
 
 PROMPT "Définition des données";
 
-/*
-CREATE OR REPLACE TRIGGER VERIF_Certificat_Entretien_Dignite
-BEFORE INSERT ON Certificat
-FOR EACH ROW
-DECLARE
-    v_dignite NUMBER(3,0);
-BEGIN
-    SELECT dignite_id INTO v_dignite
-    FROM Tenrac
-    WHERE tenrac_id = :NEW.tenrac_id;
-    
-    IF v_dignite IS NULL THEN
-        RAISE_APPLICATION_ERROR(-20001, 'ERREUR : L''entretien doit etre effectue par un Tenrac de dignite idoine !');
-    END IF;
-END;
-/
-*/
-
 -- *****************************************************************
 
 -- ==================================================================
@@ -195,13 +177,28 @@ CREATE TABLE Tenrac_Dignite (
 
 -- ORGANISME
 
+CREATE TABLE Organisme_Type (
+    --Attributs
+    orgatype_id NUMBER(5, 0),
+    orgatype_nom VARCHAR2(16) NOT NULL
+
+    ---------------------------------------------------------------
+    CONSTRAINT PK_orgatype_id PRIMARY KEY (orgatype_id)
+);
+
+
+
+
+
 CREATE TABLE Organisme (
+    --Attributs
     organisme_siret     VARCHAR2(14),
-    organisme_nom       VARCHAR2(64)    NOT NULL,
     organisme_raison    VARCHAR2(128)   NOT NULL,
-    --------------------------------------------------------------
-    CONSTRAINT PK_organisme_siret   PRIMARY KEY(organisme_siret)
-    --------------------------------------------------------------
+    --Cles etrangeres
+    orgatype_id         NUMBER(5, 0)    NOT NULL,
+    --Contraintes
+    CONSTRAINT PK_organisme_siret   PRIMARY KEY (organisme_siret),
+    CONSTRAINT FK_type_id           FOREIGN KEY (orgatype_id) REFERENCES Organisme_Type(orgatype_id)
 );
 -- ==================================================================
 
@@ -349,6 +346,7 @@ CREATE TABLE Club (
     --------------------------------------------------------------
 );
 
+
 -- LOCATION
 
 CREATE TABLE Adresse (
@@ -435,6 +433,7 @@ CREATE TABLE Reunion (
 
 -- TENRAC
 
+
 CREATE TABLE Tenrac (
     --Atributs --------------------------------------------------------------
     tenrac_id                       NUMBER(10, 0),
@@ -479,10 +478,10 @@ CREATE TABLE Carte_Membre (
     tenrac_id                   NUMBER(10, 0)   NOT NULL,
     --------------------------------------------------------------
     --Contraintes --------------------------------------------------------------
-    CONSTRAINT PK_tenrac_code   PRIMARY KEY(tenrac_code),
-    CONSTRAINT FK_club_id       FOREIGN KEY(club_id)        REFERENCES Club(club_id),
-    CONSTRAINT FK_tenrac_carte_membre     FOREIGN KEY(tenrac_id)      REFERENCES Tenrac(tenrac_id),
-    CONSTRAINT DM_carte_active  CHECK (carte_active IN (0, 1))
+    CONSTRAINT PK_tenrac_code           PRIMARY KEY(tenrac_code),
+    CONSTRAINT FK_club_id               FOREIGN KEY(club_id)        REFERENCES Club(club_id),
+    CONSTRAINT FK_tenrac_carte_membre   FOREIGN KEY(tenrac_id)      REFERENCES Tenrac(tenrac_id),
+    CONSTRAINT DM_carte_active          CHECK (carte_active IN (0, 1))
     --------------------------------------------------------------
 );
 
@@ -720,13 +719,12 @@ BEGIN
 END;
 /
 
---
+-- Verification de la présence d'une dame ou chevalier
 CREATE OR REPLACE TRIGGER TGR_Verif_Presence_Chevalier_Ou_Dame
 AFTER INSERT ON Tenrac_Se_Reunissent
 DECLARE
     v_count NUMBER;
 BEGIN
-    -- Verification de la présence d'une dame ou chevalier
     SELECT COUNT(*)
     INTO v_count
     FROM Tenrac_Se_Reunissent tsr
@@ -739,7 +737,3 @@ BEGIN
     END IF;
 END;
 /
-<<<<<<< HEAD
-
-=======
->>>>>>> 0c9b2b82875dfe1f60fcfd0e9fdea55c931e9673
